@@ -6,7 +6,6 @@ import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-direct
 import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 
-// Replace with your Mapbox access token
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const destination = [124.80045936709885, 10.68223415714612];
@@ -16,12 +15,11 @@ const Map = () => {
   const map = useRef(null);
   const markerRef = useRef(null);
   const directionsRef = useRef(null);
-  const dotRef = useRef(null); // hold dot DOM
+  const dotRef = useRef(null);
 
   useEffect(() => {
     if (!mapContainer.current || map.current) return;
 
-    // Initialize map
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
@@ -31,7 +29,6 @@ const Map = () => {
 
     map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-    // Add directions plugin
     const directions = new MapboxDirections({
       accessToken: mapboxgl.accessToken,
       unit: "metric",
@@ -59,7 +56,6 @@ const Map = () => {
         const { latitude, longitude } = position.coords;
         const coords = [longitude, latitude];
 
-        // Create pulsating dot once
         if (!dotRef.current) {
           const dot = document.createElement("div");
           dot.className = "pulsating-dot";
